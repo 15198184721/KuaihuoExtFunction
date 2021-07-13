@@ -5,14 +5,18 @@ server:
 #spring相关配置
 spring:
   datasource:
-    url:jdbc:mysql://rm-dp-extranet-connect-addr.mysql.rds.aliyuncs.com/kuaihuo_data_count?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-    driverClassName:com.mysql.jdbc.Driver
-    username:root
-    password:Xiaoli920529
-    type:com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://rm-dp-extranet-connect-addr.mysql.rds.aliyuncs.com/kuaihuo_data_count?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: kuaihuo
+    password: Xiaoli920529
+  thymeleaf:
+    cache: false
 
-#mybatis相关配置
-#mybatis:
-#  #config-locations: mybatis/mybatis-config.xml
-#  mapper-locations: classpath:mapper/*Mapper.xml           #对应你的mapper.xml映射文件
-#  type-aliases-package: com.kuaihuo.ext.mybatis.entitys    #对应实体类
+  #mybatis相关配置
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml           #对应你的mapper.xml映射文件
+  type-aliases-package: com.kuaihuo.ext.mybatis.entitys    #对应实体类
+  #开启驼峰命名
+  configuration:
+    map-underscore-to-camel-case: true
+

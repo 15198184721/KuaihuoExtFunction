@@ -1,5 +1,7 @@
 package com.kuaihuo.ext.services;
 
+import com.kuaihuo.ext.mybatis.mappers.IAppDataCountMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,12 +10,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class AppDataCountService {
 
+    @Autowired
+    private IAppDataCountMapper appDataCountMapper;
+
     /**
      * 获取测试数据
      * @return 测试数据
      */
     public String getTestData() {
-        return "123456789";
+        try {
+            return appDataCountMapper.getTestAppCountData().id;
+        }catch (Exception e){
+            return "123456789";
+        }
     }
 
 }
