@@ -1,5 +1,6 @@
 package com.kuaihuo.ext.services;
 
+import com.kuaihuo.ext.controllers.models.BaseResp;
 import com.kuaihuo.ext.mybatis.mappers.IAppDataCountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,9 @@ public class AppDataCountService {
      */
     public String getTestData() {
         try {
-            return appDataCountMapper.getTestAppCountData().id;
+            return appDataCountMapper.getTestAppCountData().getUserId();
         }catch (Exception e){
-            return "123456789";
+            return "查询数据出错了";
         }
     }
 

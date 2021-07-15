@@ -29,6 +29,12 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.2.0</version>
         </dependency>
+        <!-- mybatis-plus 对mybatis的增强组件,参考学习：https://mp.baomidou.com/ -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.3.1</version>
+        </dependency>
         <!-- jdbc数据驱动 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -53,10 +59,21 @@
             <scope>true</scope>
         </dependency>
 
+        <!-- 支持springBoot的单元测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!--  Lombok 简化代码，可以通过 @Data 注解就不需要些set和get了。参考:https://www.projectlombok.org/ -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 
