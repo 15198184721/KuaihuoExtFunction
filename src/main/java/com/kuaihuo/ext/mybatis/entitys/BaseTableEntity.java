@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 /**
- * 所有数据库实体的基础字段类,新建的所有表都需要包含此实体中的字段
+ * 定义一个通用字段的实体。如果有这些字段继承此类即可
  */
 @Getter
 @Setter

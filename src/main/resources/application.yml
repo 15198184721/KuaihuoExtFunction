@@ -20,3 +20,9 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+#mybatis-plus 相关的配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
