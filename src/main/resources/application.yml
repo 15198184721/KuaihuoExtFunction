@@ -11,14 +11,19 @@ spring:
     password: Xiaoli920529
   thymeleaf:
     cache: false
+  servlet:
+    multipart:
+      max-file-size: 5MB      #上传文件总的最大值(限制上传文件 5MB)
+      max-request-size: 5MB   # 单个文件的最大值(限制上传文件 5MB)
 
   #mybatis相关配置
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml           #对应你的mapper.xml映射文件
   type-aliases-package: com.kuaihuo.ext.mybatis.entitys    #对应实体类
-  #开启驼峰命名
   configuration:
-    map-underscore-to-camel-case: true
+    map-underscore-to-camel-case: true  #开启驼峰命名
+  global-config:
+    field-strategy: 0 #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
 
 #mybatis-plus 相关的配置
 mybatis-plus:

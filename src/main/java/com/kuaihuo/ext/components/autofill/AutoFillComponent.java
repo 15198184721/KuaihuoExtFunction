@@ -46,26 +46,6 @@ public class AutoFillComponent implements MetaObjectHandler {
     //填充App的页面跳转的表的自动填充
     private void fillUpdateAppCountActivityJump(MetaObject metaObject) {
         PrintUtil.println("更新AppCountActivityJump表数据的数据自动填充执行了");
-        //跳转次数自动填充
-        if (metaObject.hasGetter("totalCount")) {
-            Object newThisId = getFieldValByName("thisActivityId", metaObject);
-            Object newToId = getFieldValByName("thisActivityId", metaObject);
-            Object newCount = getFieldValByName("totalCount", metaObject);
-            if (newThisId != null && newToId != null) {
-                AppCountActivityJump jumpActivity = iActivityJumpMapper.selectOne(
-                        new QueryWrapper<AppCountActivityJump>()
-                                .eq("this_activity_ad", newThisId)
-                                .eq("to_activity_ad", newThisId)
-                );
-                if (jumpActivity != null) {
-                    if (newCount == null || (int) newCount == 0 || (int) newCount == 1) {
-                        setFieldValByName("totalCount", jumpActivity.getTotalCount() + 1, metaObject);
-                    } else {
-                        setFieldValByName("totalCount", jumpActivity.getTotalCount() + (int) newCount, metaObject);
-                    }
-                }
-            }
-        }
     }
 
     //填充App的用户信息表

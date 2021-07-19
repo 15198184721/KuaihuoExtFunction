@@ -57,10 +57,23 @@ public class KuaihuoMybatisPlusTest {
     @Test
     public void testAppCountActivityJumpUpdate() {
         AppCountActivityJump jump = new AppCountActivityJump();
-        jump.setThisActivityId(1);
-        jump.setToActivityId(2);
-        int rows = appJumpService.insertOrUpdate(jump);
+        jump.setThisActivity("1com.a.b.c.Activity0");
+        jump.setToActivity("1com.a.b.c.Activity20");
+//        jump.setTotalCount(100);
+        int rows = appJumpService.insertOrUpdateTotalCount(jump);
         PrintUtil.println("影响行数：" + rows);
     }
 
+    @Test
+    public void testAppCountActivityInserList() {
+        List<AppCountActivityJump> lis = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            AppCountActivityJump jump = new AppCountActivityJump();
+            jump.setThisActivity("com.a.b.c.Activity"+i);
+            jump.setToActivity("com.a.b.c.Activity2"+i);
+            lis.add(jump);
+        }
+        int rows = appJumpService.insertList(lis);
+        PrintUtil.println("影响行数：" + rows);
+    }
 }

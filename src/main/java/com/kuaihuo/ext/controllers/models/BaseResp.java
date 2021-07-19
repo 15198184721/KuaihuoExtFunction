@@ -31,6 +31,17 @@ public class BaseResp<T> {
         return new BaseResp<T>(RespCode.DATA_ERROR.code, "", data);
     }
 
+    /**
+     * 创建一个错误的返回实体
+     *
+     * @param msg
+     * @param data
+     * @return
+     */
+    public static <T> BaseResp<T> buildRespError(int code,String msg, T data) {
+        return new BaseResp<T>(code, "", data);
+    }
+
     public int code = 0;
     public String msg = "";
     public T data;

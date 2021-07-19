@@ -1,9 +1,6 @@
 package com.kuaihuo.ext.mybatis.entitys;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
@@ -27,5 +24,5 @@ public class AppCountActivityJump {
      * 跳转的总次数(只会做累加,在接口中值一定不会被覆盖。永远都是原值+当前值)
      */
     @TableField(value = "total_count", fill = FieldFill.UPDATE)
-    private int totalCount;
+    private Integer totalCount = null;
 }

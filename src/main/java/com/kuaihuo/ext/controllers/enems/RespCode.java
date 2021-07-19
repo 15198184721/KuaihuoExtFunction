@@ -6,6 +6,7 @@ package com.kuaihuo.ext.controllers.enems;
 public enum RespCode {
     Success(0), //网络请求成功
     DATA_ERROR(1), //数据错误
+    UPLOAD_ERROR(2), //文件上传错误
     ;
 
     public final int code;

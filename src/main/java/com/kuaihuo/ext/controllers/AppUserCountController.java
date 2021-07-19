@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/appUserCount")
-public class AppUserContController {
+public class AppUserCountController {
 
     @Autowired
     private AppCountUserService iUserService;
