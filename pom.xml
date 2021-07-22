@@ -10,8 +10,8 @@
     </parent>
 
     <groupId>com.kuaihuo.ext</groupId>  <!-- 组名称 -->
-    <artifactId>KuaihuoExtFunction</artifactId> <!-- 项目id -->
-    <version>0.0.1-SNAPSHOT</version> <!-- 版本 -->
+    <artifactId>kuaihuoext</artifactId> <!-- 项目id -->
+    <version>1.0.0</version> <!-- 版本 -->
     <packaging>war</packaging> <!-- 打包方式：war、jar -->
     <name>KuaihuoExtFunction</name> <!-- 项目名称 -->
     <description>快活项目新增的扩展测试功能模块</description>
@@ -26,19 +26,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <!-- 打包的时候排除,打war的时候需要移除内置的Tomcat -->
-            <exclusions>
+            <!--<exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
-            </exclusions>
+            </exclusions>-->
         </dependency>
         <!-- tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <!-- 打包的时候排除,调试运行时候需要打开才能正常启动Tomcat -->
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <!--打war的时候需要-->
         <!--添加servlet-api的依赖,用来打war包  -->

@@ -25,9 +25,10 @@ public class AppCountActivityJumpService {
 
     @Autowired
     private IAppCountActivityJumpMapper iJumpMapper;
-
     @Autowired
-    private IAppDictionaryActivitysMapper iAppDictionaryActivitysMapper;
+    private IAppCountActivityJumpMapper iAppDictionaryModelTagMapper; //分类字典
+    @Autowired
+    private IAppDictionaryActivitysMapper iAppDictionaryActivitysMapper; //页面说明字典
 
     /**
      * 根据当前页面id和去往页面的id。查询跳转记录
@@ -117,7 +118,7 @@ public class AppCountActivityJumpService {
                         .eq("to_activity", jumpItem.getToActivity())
         );
         if (jumpActivity != null) {
-            if (jumpItem.getTotalCount() == null ||  jumpItem.getTotalCount() == 0 || jumpItem.getTotalCount() == 1) {
+            if (jumpItem.getTotalCount() == null || jumpItem.getTotalCount() == 0 || jumpItem.getTotalCount() == 1) {
                 jumpItem.setTotalCount(jumpActivity.getTotalCount() + 1);
             } else {
                 jumpItem.setTotalCount(jumpActivity.getTotalCount() + jumpItem.getTotalCount());

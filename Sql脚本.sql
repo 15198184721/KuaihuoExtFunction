@@ -26,7 +26,6 @@ ROW_FORMAT=DYNAMIC
 AVG_ROW_LENGTH=0;
 
 
-
 /* 记录App的所有Activity的字段表。Activity的字典表 */
 CREATE TABLE `app_dictionary_activitys` (
 	`id` int NOT NULL AUTO_INCREMENT COMMENT '这个activity在字典对应的id，此id表示指定页面',
@@ -36,4 +35,13 @@ CREATE TABLE `app_dictionary_activitys` (
 	Unique KEY `unique_index`(`name`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COMMENT='app字典表,记录所有activity的名称作为字典,提供给[app_count_activity_jump]等表使用';
 
+/* 请确认以下SQL符合您的变更需求，务必确认无误后再提交执行 */
 
+CREATE TABLE `app_dictionary_model_tag` (
+	`id` int NOT NULL AUTO_INCREMENT COMMENT '唯一id',
+	`name` varchar(20) NOT NULL COMMENT 'tag的名称,标志某个统计类型名称',
+	`desc` varchar(100) NULL COMMENT '描述信息',
+	PRIMARY KEY (`id`),
+	Unique KEY `唯一索引`(`name`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8
+COMMENT='app字典表,记录当前模块所有统计分类标志。具有哪些统计分类的字典';
