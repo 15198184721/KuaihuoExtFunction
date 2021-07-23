@@ -1,4 +1,4 @@
-package com.kuaihuo.ext.utils;
+package com.kuaihuo.ext.utils.files;
 
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ResourceUtils;

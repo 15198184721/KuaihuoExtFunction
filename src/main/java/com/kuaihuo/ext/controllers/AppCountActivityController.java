@@ -1,16 +1,12 @@
 package com.kuaihuo.ext.controllers;
 
-import com.kuaihuo.ext.controllers.enems.RespCode;
 import com.kuaihuo.ext.controllers.models.BaseResp;
 import com.kuaihuo.ext.services.AppCountActivityJumpService;
-import com.kuaihuo.ext.utils.FilePathUtil;
-import com.kuaihuo.ext.utils.PrintUtil;
+import com.kuaihuo.ext.utils.files.FilePathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * app用户相关统计的控制器

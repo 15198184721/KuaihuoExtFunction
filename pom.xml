@@ -46,6 +46,13 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
+        <!-- *************************************【需要加入新包：在此处加入】*************************************-->
+        <!-- 导入json解析包 -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version>
+        </dependency>
 
         <!-- mybatis数据库操作 -->
         <dependency>

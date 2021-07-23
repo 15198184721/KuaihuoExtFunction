@@ -58,10 +58,11 @@ public class AppCountActivityJumpService {
     @Transactional //需要在同一个事物中执行
     public int insertOrUpdate(AppCountActivityJump jumpItem) {
         try {
-            if (getFindById(jumpItem.getThisActivity(), jumpItem.getToActivity()) == null) {
+            AppCountActivityJump oldData = getFindById(jumpItem.getThisActivity(), jumpItem.getToActivity());
+            if (oldData == null) {
                 return iJumpMapper.insert(jumpItem);
             } else {
-                buildUpdateCountJump(jumpItem);
+                buildUpdateCountJump(oldData,jumpItem);
                 return iJumpMapper.update(jumpItem, new UpdateWrapper<AppCountActivityJump>()
                         .eq("this_activity", jumpItem.getThisActivity())
                         .eq("to_activity", jumpItem.getToActivity())
@@ -81,10 +82,11 @@ public class AppCountActivityJumpService {
     @Transactional //需要在同一个事物中执行
     public int insertOrUpdateTotalCount(AppCountActivityJump jumpItem) {
         try {
-            if (getFindById(jumpItem.getThisActivity(), jumpItem.getToActivity()) == null) {
+            AppCountActivityJump oldData = getFindById(jumpItem.getThisActivity(), jumpItem.getToActivity());
+            if (oldData == null) {
                 return iJumpMapper.insert(jumpItem);
             } else {
-                buildUpdateCountJump(jumpItem);
+                buildUpdateCountJump(oldData,jumpItem);
                 return iJumpMapper.update(null, new UpdateWrapper<AppCountActivityJump>()
                         .set("total_count", jumpItem.getTotalCount())
                         .eq("this_activity", jumpItem.getThisActivity())
@@ -111,17 +113,12 @@ public class AppCountActivityJumpService {
     }
 
     //重新构建实体对象。达到自动更新累加统计字段的目的
-    private void buildUpdateCountJump(AppCountActivityJump jumpItem) {
-        AppCountActivityJump jumpActivity = iJumpMapper.selectOne(
-                new QueryWrapper<AppCountActivityJump>()
-                        .eq("this_activity", jumpItem.getThisActivity())
-                        .eq("to_activity", jumpItem.getToActivity())
-        );
-        if (jumpActivity != null) {
+    private void buildUpdateCountJump(AppCountActivityJump oldData,AppCountActivityJump jumpItem) {
+        if (oldData != null) {
             if (jumpItem.getTotalCount() == null || jumpItem.getTotalCount() == 0 || jumpItem.getTotalCount() == 1) {
-                jumpItem.setTotalCount(jumpActivity.getTotalCount() + 1);
+                jumpItem.setTotalCount(oldData.getTotalCount() + 1);
             } else {
-                jumpItem.setTotalCount(jumpActivity.getTotalCount() + jumpItem.getTotalCount());
+                jumpItem.setTotalCount(oldData.getTotalCount() + jumpItem.getTotalCount());
             }
         }
     }

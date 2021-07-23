@@ -1,10 +1,16 @@
 package com.kuaihuo.ext.controllers;
 
+import com.kuaihuo.ext.controllers.enems.CountTypeEnum;
+import com.kuaihuo.ext.controllers.intefaces.IFileParsing;
+import com.kuaihuo.ext.controllers.intefaces.impl.ActivityJumpFileParsingImpl;
 import com.kuaihuo.ext.controllers.models.BaseResp;
+import com.kuaihuo.ext.mybatis.entitys.AppCountActivityJump;
 import com.kuaihuo.ext.services.AppCountActivityJumpService;
-import com.kuaihuo.ext.utils.FilePathUtil;
+import com.kuaihuo.ext.utils.files.FileIOUtils;
+import com.kuaihuo.ext.utils.files.FilePathUtil;
 import com.kuaihuo.ext.utils.ParsingFileDataUtil;
 import com.kuaihuo.ext.utils.PrintUtil;
+import com.kuaihuo.ext.utils.files.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,7 +73,7 @@ public class BaseRecordFileUploadCountController {
             }
         }
         if (successCount > 0) {
-            //添加任务
+            //添加异步任务
             ParsingFileDataUtil.addTask(() -> parsingFileData2SaveDb(taskFiles));
         }
         return files.size() == successCount;
@@ -75,6 +81,44 @@ public class BaseRecordFileUploadCountController {
 
     //解析文件数据保存到到数据库
     private void parsingFileData2SaveDb(List<File> taskFiles) {
-        PrintUtil.println("开始处理上传的文件数据到数据库中--------");
+        Map<CountTypeEnum, List<File>> typeFiles = new HashMap<>();
+        for (File taskFile : taskFiles) {
+            try {
+                boolean isCanHandle = false; //当前文件是否能被处理
+                String fileName = FileUtils.getFileNameNoExtension(taskFile);
+                //对文件进行分类筛选
+                for (CountTypeEnum value : CountTypeEnum.values()) {
+                    if (fileName.startsWith(value.name)) {
+                        isCanHandle = true;
+                        if (typeFiles.get(value) == null) {
+                            List<File> ls = new ArrayList<>();
+                            ls.add(taskFile);
+                            typeFiles.put(value, ls);
+                        } else {
+                            typeFiles.get(value).add(taskFile);
+                        }
+                        break;
+                    }
+                }
+                if (!isCanHandle) {
+                    //当前文件不能被处理
+                    taskFile.delete();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        //开始根据分类调用执行相关的处理任务
+        for (Map.Entry<CountTypeEnum, List<File>> countTypeEnumListEntry : typeFiles.entrySet()) {
+            try {
+                //创建类型处理器
+                IFileParsing typeParsing = countTypeEnumListEntry.getKey().parsingClzz.newInstance();
+                typeParsing.parsingFile(countTypeEnumListEntry.getValue());
+            } catch (InstantiationException | IllegalAccessException n) {
+                PrintUtil.println("创建类型日志处理器错误");
+            } catch (Exception e) {
+                PrintUtil.println("处理[" + countTypeEnumListEntry.getKey().name + "]类型日志出现错误:"+e);
+            }
+        }
     }
 }
