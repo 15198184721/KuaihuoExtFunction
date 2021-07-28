@@ -35,13 +35,10 @@ CREATE TABLE `app_dictionary_activitys` (
 	Unique KEY `unique_index`(`name`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COMMENT='app字典表,记录所有activity的名称作为字典,提供给[app_count_activity_jump]等表使用';
 
-/* 请确认以下SQL符合您的变更需求，务必确认无误后再提交执行 */
-
-CREATE TABLE `app_dictionary_model_tag` (
-	`id` int NOT NULL AUTO_INCREMENT COMMENT '唯一id',
-	`name` varchar(20) NOT NULL COMMENT 'tag的名称,标志某个统计类型名称',
-	`desc` varchar(100) NULL COMMENT '描述信息',
-	PRIMARY KEY (`id`),
-	Unique KEY `唯一索引`(`name`)
-) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8
-COMMENT='app字典表,记录当前模块所有统计分类标志。具有哪些统计分类的字典';
+/* 记录App的用户在每个页面的停留时间 */
+CREATE TABLE `app_count_activity_user_stay` (
+	`user_id` varchar(10) NOT NULL COMMENT '用户的id',
+	`stay_activity` varchar(100) NOT NULL COMMENT '停留的页面',
+	`stay_time` int(8) NOT NULL DEFAULT 0 COMMENT '总共停留的时长,做累加统计(单位:秒)',
+	`update_time` timestamp NULL COMMENT '最近更新的时间(也可以看做最近访问此页面的时间)'
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COMMENT='界面停留统计,统计界面用户停留情况。就是用户在某个界面停留时长。达到效果：能够反馈用户的停留界面时长信息';

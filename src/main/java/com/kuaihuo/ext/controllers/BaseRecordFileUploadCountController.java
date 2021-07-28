@@ -2,11 +2,8 @@ package com.kuaihuo.ext.controllers;
 
 import com.kuaihuo.ext.controllers.enems.CountTypeEnum;
 import com.kuaihuo.ext.controllers.intefaces.IFileParsing;
-import com.kuaihuo.ext.controllers.intefaces.impl.ActivityJumpFileParsingImpl;
 import com.kuaihuo.ext.controllers.models.BaseResp;
-import com.kuaihuo.ext.mybatis.entitys.AppCountActivityJump;
 import com.kuaihuo.ext.services.AppCountActivityJumpService;
-import com.kuaihuo.ext.utils.files.FileIOUtils;
 import com.kuaihuo.ext.utils.files.FilePathUtil;
 import com.kuaihuo.ext.utils.ParsingFileDataUtil;
 import com.kuaihuo.ext.utils.PrintUtil;
