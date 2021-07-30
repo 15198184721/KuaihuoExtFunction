@@ -42,3 +42,15 @@ CREATE TABLE `app_count_activity_user_stay` (
 	`stay_time` int(8) NOT NULL DEFAULT 0 COMMENT '总共停留的时长,做累加统计(单位:秒)',
 	`update_time` timestamp NULL COMMENT '最近更新的时间(也可以看做最近访问此页面的时间)'
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COMMENT='界面停留统计,统计界面用户停留情况。就是用户在某个界面停留时长。达到效果：能够反馈用户的停留界面时长信息';
+
+/* 记录App的通用全局的配置。和具体用户无关的配置 */
+CREATE TABLE `app_general_config` (
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '记录id',
+	`type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '配置类型',
+	`value` tinyint(3) NULL COMMENT '配置的值，null:未配置',
+	`valid_period` timestamp NULL COMMENT '配置生效结束日期(生效截止日期),null表示长期有效',
+	`effective_area` varchar(20) NULL COMMENT '生效区域(省级)，null表示全国',
+	`msg` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '配置描述,值说明',
+	PRIMARY KEY (`id`),
+	Unique KEY `un_type`(`type`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COMMENT='通用配置，记录应用的通用配置信息，和用户无关。正对所有应用有效的通用配置';

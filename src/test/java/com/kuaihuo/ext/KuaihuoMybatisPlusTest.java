@@ -1,9 +1,13 @@
 package com.kuaihuo.ext;
 
+import com.kuaihuo.ext.controllers.enems.AppGeneralConfigEnum;
 import com.kuaihuo.ext.mybatis.entitys.AppCountActivityJump;
 import com.kuaihuo.ext.mybatis.entitys.AppCountUser;
+import com.kuaihuo.ext.mybatis.entitys.AppGeneralConfig;
+import com.kuaihuo.ext.mybatis.mappers.IAppGeneralConfigMapper;
 import com.kuaihuo.ext.services.AppCountActivityJumpService;
 import com.kuaihuo.ext.services.AppCountUserService;
+import com.kuaihuo.ext.services.AppGeneralConfigService;
 import com.kuaihuo.ext.utils.PrintUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -74,6 +78,19 @@ public class KuaihuoMybatisPlusTest {
             lis.add(jump);
         }
         int rows = appJumpService.insertList(lis);
+        PrintUtil.println("影响行数：" + rows);
+    }
+
+    @Autowired
+    IAppGeneralConfigMapper iAppGeneralMapper;
+
+    @Test
+    public void testAppGeneralConfigInsert() {
+        AppGeneralConfig config = new AppGeneralConfig();
+        config.setType(AppGeneralConfigEnum.PUBLIC_SACRIFICE.type);
+        config.setValue(0);
+        config.setMsg("是否公祭日的配置(0:否，1:是)");
+        int rows = iAppGeneralMapper.insert(config);
         PrintUtil.println("影响行数：" + rows);
     }
 }
