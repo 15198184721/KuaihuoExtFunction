@@ -19,7 +19,7 @@ public class AppGeneralConfig {
      * id
      */
     @Id //不加此注解。在BaseMapper的updateById方法会报错，
-    private Long id;
+    private Integer id;
     /**
      * 配置类型
      */
