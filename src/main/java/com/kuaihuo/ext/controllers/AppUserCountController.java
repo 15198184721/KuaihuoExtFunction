@@ -43,6 +43,7 @@ public class AppUserCountController {
             user.setUserId(req.getUserId());
             user.setName(req.getName());
             user.setGender(req.getGender());
+            user.setLoginAddrss(req.getLoginAddrss());
             iUserService.insertOrUpdate(user);
         } catch (Exception e) {
             PrintUtil.println("更新插入用户统计出现错误了:" + e);

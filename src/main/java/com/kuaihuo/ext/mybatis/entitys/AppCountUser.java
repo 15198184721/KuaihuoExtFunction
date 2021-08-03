@@ -32,6 +32,10 @@ public class AppCountUser extends BaseTableEntity {
      */
     private int gender;
     /**
+     * 用户最近一次的登录地点(大概位置)
+     */
+    private String loginAddrss;
+    /**
      * 最后的登录时间
      *  注：为所有表增加通用字段，为了测试自动填充功能
      */
