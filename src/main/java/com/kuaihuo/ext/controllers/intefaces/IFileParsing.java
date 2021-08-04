@@ -13,4 +13,9 @@ public interface IFileParsing {
      * @param files
      */
     void parsingFile(List<File> files);
+
+    /**
+     * 设置我debug模式。也就是是以debug模式插入。㤇插入到debug数据表
+     */
+    void setDebug();
 }

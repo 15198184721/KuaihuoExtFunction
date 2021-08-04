@@ -1,5 +1,19 @@
 /* 所有的数据库依赖于：mysql数据库。阿里云第三方数据库服务 */
 
+/*
+    注意：表明末尾以"_debug"结尾的表示此表分为debug和relese版本。也就是说存在两个：_debug不表示debug版本的表，没有此结尾的表示线上的表
+    表名称：
+    通用：
+        app_dictionary_activitys //字典表。只是几率每个activity的消息描述
+        app_count_user  //统计用户登录次数
+        app_count_activity_jump //统计页面的跳转路径情况
+        app_count_activity_user_stay //统计用户的在页面上的停留时间情况
+    relese环境的：
+        app_general_config //通用用户配置
+    relese环境的(表功能和relese环境一致)：
+        app_general_config_debug
+*/
+
 /* 用户信息相关的统计表 */
 CREATE TABLE `app_count_user` (
 	`user_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户id',

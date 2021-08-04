@@ -79,4 +79,9 @@ public class ActivityUserSalyFileParsingImpl implements IFileParsing {
             }
         }
     }
+
+    @Override
+    public void setDebug() {
+
+    }
 }

@@ -13,7 +13,7 @@ import java.io.File;
  * 专门用于统计记录用户相关的数据接口服务
  */
 @RestController
-@RequestMapping("/appActivityCount")
+@RequestMapping("/count/appActivityCount")
 public class AppCountActivityController {
 
     @Autowired

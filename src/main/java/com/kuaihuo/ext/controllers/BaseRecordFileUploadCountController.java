@@ -20,7 +20,7 @@ import java.util.*;
  * 基础的记录文件上传服务接口，提供一些比较通用类的服务接口
  */
 @RestController
-@RequestMapping("/baseRecordFileController")
+@RequestMapping("/count/baseRecordFileController")
 public class BaseRecordFileUploadCountController {
 
     @Autowired
@@ -35,14 +35,16 @@ public class BaseRecordFileUploadCountController {
      * @return
      */
     @PostMapping("/uploadRecordFile")
-    public BaseResp<String> uploadRecordLog(@RequestParam("file") List<MultipartFile> files) {
+    public BaseResp<String> uploadRecordLog(
+            @RequestHeader Map<String, String> headers,
+            @RequestParam("file") List<MultipartFile> files) {
         if (files.isEmpty()) {
             return BaseResp.buildRespSuccess("成功");
         }
         if (fileUploadSaveDir == null) {
             fileUploadSaveDir = FilePathUtil.getUploadAbsBasePath();
         }
-        saveLogFiles(files);
+        saveLogFiles(files, headers);
         return BaseResp.buildRespSuccess("成功");
         //暂时不管。无非就是丢失部分数据而已。所以只要调用此方法。一定是成功
 //        if(saveLogFiles(files)){
@@ -53,7 +55,7 @@ public class BaseRecordFileUploadCountController {
     }
 
     //保存文件(量大可以考虑异步执行)
-    private boolean saveLogFiles(List<MultipartFile> files) {
+    private boolean saveLogFiles(List<MultipartFile> files, Map<String, String> headers) {
         int successCount = 0;
         List<File> taskFiles = new ArrayList<File>();
         for (MultipartFile file : files) {
@@ -71,13 +73,14 @@ public class BaseRecordFileUploadCountController {
         }
         if (successCount > 0) {
             //添加异步任务
-            ParsingFileDataUtil.addTask(() -> parsingFileData2SaveDb(taskFiles));
+            ParsingFileDataUtil.addTask(() -> parsingFileData2SaveDb(taskFiles, headers));
         }
         return files.size() == successCount;
     }
 
     //解析文件数据保存到到数据库
-    private void parsingFileData2SaveDb(List<File> taskFiles) {
+    private void parsingFileData2SaveDb(List<File> taskFiles, Map<String, String> headers) {
+        String debug = headers.get("debug");
         Map<CountTypeEnum, List<File>> typeFiles = new HashMap<>();
         for (File taskFile : taskFiles) {
             try {
@@ -110,11 +113,17 @@ public class BaseRecordFileUploadCountController {
             try {
                 //创建类型处理器
                 IFileParsing typeParsing = countTypeEnumListEntry.getKey().parsingClzz.newInstance();
+                if (debug != null && debug.length() > 0) {
+                    if ("true".equals(debug.trim())) {
+                        //添加debug后缀
+                        typeParsing.setDebug();
+                    }
+                }
                 typeParsing.parsingFile(countTypeEnumListEntry.getValue());
             } catch (InstantiationException | IllegalAccessException n) {
                 PrintUtil.println("创建类型日志处理器错误");
             } catch (Exception e) {
-                PrintUtil.println("处理[" + countTypeEnumListEntry.getKey().name + "]类型日志出现错误:"+e);
+                PrintUtil.println("处理[" + countTypeEnumListEntry.getKey().name + "]类型日志出现错误:" + e);
             }
         }
     }

@@ -73,4 +73,9 @@ public class ActivityJumpFileParsingImpl implements IFileParsing {
             }
         }
     }
+
+    @Override
+    public void setDebug() {
+
+    }
 }

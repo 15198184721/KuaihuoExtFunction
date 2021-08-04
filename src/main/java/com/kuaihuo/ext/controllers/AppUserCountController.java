@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * 专门用于统计记录用户相关的数据接口服务
  */
 @RestController
-@RequestMapping("/appUserCount")
+@RequestMapping("/count/appUserCount")
 public class AppUserCountController {
 
     @Autowired
