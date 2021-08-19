@@ -26,19 +26,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <!-- 打包的时候排除,打war的时候需要移除内置的Tomcat -->
-            <!--<exclusions>
+            <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
-            </exclusions>-->
+            </exclusions>
         </dependency>
         <!-- tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <!-- 打包的时候排除,调试运行时候需要打开才能正常启动Tomcat -->
-            <!--<scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
         <!--打war的时候需要-->
         <!--添加servlet-api的依赖,用来打war包  -->
